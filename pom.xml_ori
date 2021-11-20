@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.0</version>
+        <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>guru.springframework</groupId>
@@ -21,10 +21,7 @@
         <jaxb.version>2.3.0</jaxb.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
-        <asciidoctor.maven.plugin.version>2.2.1</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>2.5.2</asciidoctorj.version>
-        <jruby.version>9.2.17.0</jruby.version>
+        <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -70,13 +67,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <!-- excluye juni4 esto era necesario en versiones antiguas de spring boot con la nueva no -->
-            <!--<exclusions>
+            <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
                 </exclusion>
-            </exclusions>-->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -93,41 +89,11 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-
-        <!-- log4j2 -->
-        <!-- implement and build your application using the log4j-api.jar, and
-            you need to provide the additional log4j-core.jar at runtime -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.2.0.Final</version>
-        </dependency>
-        <!--
-        <dependency>
-            <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-            <version>9.2.11.1</version>
-        </dependency>
-        -->
     </dependencies>
 
     <build>
@@ -135,19 +101,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.8.0</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
@@ -160,11 +118,6 @@
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
-                        <dependency>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version>
-                        </dependency>
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <compilerArg>
@@ -176,7 +129,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.8</version>
+                <version>1.5.3</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
@@ -187,11 +140,6 @@
                         <configuration>
                             <backend>html</backend>
                             <doctype>book</doctype>
-                            <!--
-                            <attributes>
-                                <snippets>${project.build.directory}/generated-snippets</snippets>
-                            </attributes>
-                            -->
                         </configuration>
                     </execution>
                 </executions>
@@ -201,41 +149,7 @@
                         <artifactId>spring-restdocs-asciidoctor</artifactId>
                         <version>${spring-restdocs.version}</version>
                     </dependency>
-                    <dependency>
-                        <groupId>org.jruby</groupId>
-                        <artifactId>jruby-complete</artifactId>
-                        <version>${jruby.version}</version>
-                    </dependency>
                 </dependencies>
-            </plugin>
-            <!--
-                You may want to package the generated documentation in your project’s jar file: for example,
-                to have it served as static content by Spring Boot
-            -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${project.build.directory}/generated-docs
-                                    </directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

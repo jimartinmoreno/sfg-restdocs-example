@@ -1,14 +1,8 @@
 package guru.springframework.sfgrestdocsexample.web.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -21,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class BeerDto {
 
     @Null
@@ -35,6 +30,7 @@ public class BeerDto {
     @Null
     private OffsetDateTime lastModifiedDate;
 
+    @Size(min = 3, max = 100, message = "the beer name must have at least 3 character and at most 100")
     @NotBlank
     private String beerName;
 
@@ -49,6 +45,8 @@ public class BeerDto {
     @NotNull
     private BigDecimal price;
 
-    private Integer quantityOnHand;
+    @Positive
+    private Integer minOnHand;
 
+    private Integer quantityToBrew;
 }

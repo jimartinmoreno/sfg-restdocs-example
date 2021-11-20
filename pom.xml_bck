@@ -115,12 +115,6 @@
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.2.0.Final</version>
-        </dependency>
         <!--
         <dependency>
             <groupId>org.jruby</groupId>
@@ -176,7 +170,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.8</version>
+                <version>1.5.3</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
@@ -185,13 +179,9 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <backend>html</backend>
-                            <doctype>book</doctype>
-                            <!--
-                            <attributes>
-                                <snippets>${project.build.directory}/generated-snippets</snippets>
-                            </attributes>
-                            -->
+                            <!--<sourceDirectory>${project.build.directory}/asciidoc</sourceDirectory>-->
+                            <backend>html5</backend>
+                            <!--<doctype>book</doctype>-->
                         </configuration>
                     </execution>
                 </executions>
@@ -206,36 +196,8 @@
                         <artifactId>jruby-complete</artifactId>
                         <version>${jruby.version}</version>
                     </dependency>
+                   
                 </dependencies>
-            </plugin>
-            <!--
-                You may want to package the generated documentation in your project’s jar file: for example,
-                to have it served as static content by Spring Boot
-            -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${project.build.directory}/generated-docs
-                                    </directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
